@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>to do application</title>
+</head>
+<style>
+    body {
+        text-align: center;
+        padding: 20px;
+        margin: 20px;
+    }
+
+    #inp {
+        padding: 10px;
+        width: 200px;
+        border: 2px solid rgb(30, 0, 66);
+        border-radius: 10px;
+    }
+
+
+    button {
+        background-color: rgb(245, 135, 135);
+        border: none;
+        padding: 10px 15px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        transform: scale(1.05);
+    }
+
+    li {
+        width: 350px;
+        margin: 10px auto;
+      
+        background-color: rgb(172, 71, 71);
+        border-radius: 8px;
+       
+    }ul, ol {
+    list-style-position: inside !important;
+    padding-left: 0;
+}
+
+
+    li button:first-of-type {
+        margin: 20px;
+        background-color: rgb(77, 65, 249);
+    }
+
+    li button:last-of-type {
+        margin: 10px;
+        background-color: rgb(68, 162, 10);
+        color: rgb(0, 0, 0);
+    }
+</style>
+
+<body>
+    <div class="main">
+        <h1>To do application</h1>
+        <input id="inp" type="text">
+        <button onclick="addtodo()">add todo</button>
+        <button onclick="delall()">delete all </button>
+        <ol id="list">
+
+        </ol>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
