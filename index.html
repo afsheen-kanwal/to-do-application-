@@ -4,70 +4,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>to do application</title>
+    <title>To-Do Application</title>
+    <!-- Google Fonts for modern typography -->
+    <link href="https://googleapis.com" rel="stylesheet">
+    <style>
+        /* Modern Reset and Variables */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            --card-bg: #ffffff;
+            --text-main: #1e1e24;
+            --text-muted: #585862;
+            --input-border: #d1d5db;
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --danger: #ef4444;
+            --danger-hover: #dc2626;
+            --success: #10b981;
+            --success-hover: #059669;
+            --todo-bg: #f9fafb;
+            --todo-border: #e5e7eb;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        /* Centered Application Container Card */
+        .main {
+            width: 100%;
+            max-width: 480px;
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 25px;
+            letter-spacing: -0.5px;
+        }
+
+        /* Responsive Input Wrapper Layout */
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        #inp {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 15px;
+            border: 2px solid var(--input-border);
+            border-radius: 12px;
+            outline: none;
+            transition: all 0.2s ease;
+            color: var(--text-main);
+            background-color: #fcfcfd;
+        }
+
+        #inp:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.1);
+            background-color: #ffffff;
+        }
+
+        /* Action Buttons Area */
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        button {
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            text-transform: capitalize;
+        }
+
+        .btn-add {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-add:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-delete-all {
+            background-color: #fee2e2;
+            color: var(--danger);
+        }
+
+        .btn-delete-all:hover {
+            background-color: #fca5a5;
+            color: #b91c1c;
+        }
+
+        /* Clean Functional List Elements */
+        #list {
+            list-style-type: none;
+            padding-left: 0;
+            margin-top: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--todo-bg);
+            border: 1px solid var(--todo-border);
+            padding: 12px 16px;
+            border-radius: 12px;
+            text-align: left;
+            word-break: break-word;
+            font-size: 15px;
+            color: var(--text-main);
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Inline List Action Elements Container */
+        .li-buttons {
+            display: flex;
+            gap: 6px;
+            flex-shrink: 0;
+            margin-left: 12px;
+        }
+
+        /* Selection styling targeting internal list item actions */
+        li button {
+            padding: 6px 12px;
+            font-size: 12px;
+            border-radius: 8px;
+        }
+
+        li button:first-of-type {
+            background-color: #f3f4f6;
+            color: var(--text-muted);
+            border: 1px solid #d1d5db;
+        }
+
+        li button:first-of-type:hover {
+            background-color: #e5e7eb;
+            color: var(--text-main);
+        }
+
+        li button:last-of-type {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        li button:last-of-type:hover {
+            background-color: var(--danger-hover);
+        }
+
+        /* Small screen responsive rules */
+        @media (max-width: 480px) {
+            .main {
+                padding: 20px;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            li {
+                padding: 10px 12px;
+                font-size: 14px;
+            }
+        }
+    </style>
 </head>
-<style>
-    body {
-        text-align: center;
-        padding: 20px;
-        margin: 20px;
-    }
-
-    #inp {
-        padding: 10px;
-        width: 200px;
-        border: 2px solid rgb(30, 0, 66);
-        border-radius: 10px;
-    }
-
-
-    button {
-        background-color: rgb(245, 135, 135);
-        border: none;
-        padding: 10px 15px;
-        border-radius: 8px;
-        cursor: pointer;
-    }
-
-    button:hover {
-        transform: scale(1.05);
-    }
-
-    li {
-        width: 350px;
-        margin: 10px auto;
-      
-        background-color: rgb(172, 71, 71);
-        border-radius: 8px;
-       
-    }ul, ol {
-    list-style-position: inside !important;
-    padding-left: 0;
-}
-
-
-    li button:first-of-type {
-        margin: 20px;
-        background-color: rgb(77, 65, 249);
-    }
-
-    li button:last-of-type {
-        margin: 10px;
-        background-color: rgb(68, 162, 10);
-        color: rgb(0, 0, 0);
-    }
-</style>
 
 <body>
     <div class="main">
-        <h1>To do application</h1>
-        <input id="inp" type="text">
-        <button onclick="addtodo()">add todo</button>
-        <button onclick="delall()">delete all </button>
-        <ol id="list">
+        <h1>To-Do Application</h1>
+        
+        <div class="input-container">
+            <input id="inp" type="text" placeholder="Add a new task...">
+            <div class="action-buttons">
+                <button class="btn-add" onclick="addtodo()">Add Todo</button>
+                <button class="btn-delete-all" onclick="delall()">Delete All</button>
+            </div>
+        </div>
 
+        <ol id="list">
+            <!-- Items are appended here dynamically -->
         </ol>
     </div>
+    
     <script src="app.js"></script>
 </body>
 
